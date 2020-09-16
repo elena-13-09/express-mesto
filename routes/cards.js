@@ -6,10 +6,9 @@ const cardsPath = path.join('.', 'data', 'cards.json');
 
 router.get('/cards', (req, res) => {
   fs.readFile(cardsPath, { encoding: 'utf8' }, (err, data) => {
-
     if (err) {
       res
-        .status(404)
+        .status(500)
         .send({ message: 'Запрашиваемый ресурс не найден' });
       return;
     }

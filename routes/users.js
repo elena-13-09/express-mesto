@@ -6,10 +6,9 @@ const usersPath = path.join('.', 'data', 'users.json');
 
 router.get('/users', (req, res) => {
   fs.readFile(usersPath, { encoding: 'utf8' }, (err, data) => {
-
     if (err) {
       res
-        .status(404)
+        .status(500)
         .send({ message: 'Запрашиваемый ресурс не найден' });
       return;
     }
@@ -20,16 +19,13 @@ router.get('/users', (req, res) => {
 
 router.get('/users/:_id', (req, res) => {
   fs.readFile(usersPath, { encoding: 'utf8' }, (err, data) => {
-
     if (err) {
       res
-        .status(404)
+        .status(500)
         .send({ message: 'Запрашиваемый ресурс не найден' });
       return;
     }
-
     const user = JSON.parse(data).find((item) => item._id === req.params._id);
-
     if (!user) {
       res
         .status(404)
@@ -42,4 +38,3 @@ router.get('/users/:_id', (req, res) => {
 });
 
 module.exports = router;
-

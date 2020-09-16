@@ -17,12 +17,9 @@ app.use('/', cardsRouter);
 app.use('/', usersRouter);
 
 app.all('*', (req, res) => {
-  res.status(404);
-  res.send({ message: 'Запрашиваемый ресурс не найден' });
+  res
+    .status(404)
+    .send({ message: 'Запрашиваемый ресурс не найден' });
 });
 
-app.listen(PORT, () => {
-  // Если всё работает, консоль покажет, какой порт приложение слушает
-  console.log(`App listening on port ${PORT}`)
-});
-
+app.listen(PORT);
