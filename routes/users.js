@@ -1,40 +1,16 @@
 const router = require('express').Router();
-const fs = require('fs');
-const path = require('path');
+const {
+  getUsers,
+  getUserById,
+  createUser,
+  updateUser,
+  updateAvatar,
+} = require('../controllers/users');
 
-const usersPath = path.join('.', 'data', 'users.json');
-
-router.get('/users', (req, res) => {
-  fs.readFile(usersPath, { encoding: 'utf8' }, (err, data) => {
-    if (err) {
-      res
-        .status(500)
-        .send({ message: 'Запрашиваемый ресурс не найден' });
-      return;
-    }
-    res
-      .send(JSON.parse(data));
-  });
-});
-
-router.get('/users/:_id', (req, res) => {
-  fs.readFile(usersPath, { encoding: 'utf8' }, (err, data) => {
-    if (err) {
-      res
-        .status(500)
-        .send({ message: 'Запрашиваемый ресурс не найден' });
-      return;
-    }
-    const user = JSON.parse(data).find((item) => item._id === req.params._id);
-    if (!user) {
-      res
-        .status(404)
-        .send({ message: 'Нет пользователя с таким id' });
-      return;
-    }
-    res
-      .send(user);
-  });
-});
+router.get('/users', getUsers);
+router.get('/users/:userId', getUserById);
+router.post('/users', createUser);
+router.patch('/users/me', updateUser);
+router.patch('/users/me/avatar', updateAvatar);
 
 module.exports = router;
