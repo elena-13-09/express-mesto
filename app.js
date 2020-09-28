@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // для приёма ве�
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100,
-  message: 'Повторите запрос позже'
+  message: 'Повторите запрос позже',
 });
 
 // применить ко всем запросам
@@ -44,7 +44,7 @@ app.use((err, req, res, next) => {
     res.status(500).send({ message: 'На сервере произошла ошибка' });
   } else {
     next();
-  };
+  }
 });
 
 app.use('/', cardsRouter);
